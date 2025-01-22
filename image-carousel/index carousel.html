@@ -1,0 +1,181 @@
+<!--<html>
+<head>
+    <title>Image Carousel</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <style>
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .carousel-control.left {
+            left: 10px;
+        }
+        .carousel-control.right {
+            right: 10px;
+        }
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .carousel-indicator.active {
+            background-color: #333;
+        }
+        .carousel-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function Carousel() {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const items = [
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of sushi with various types of sushi pieces arranged neatly",
+                    caption: "Sushi",
+                    subCaption: "Japan"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of pizza with various toppings",
+                    caption: "Pizza",
+                    subCaption: "Italy"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A bowl of ramen with noodles, egg, and vegetables",
+                    caption: "Ramen",
+                    subCaption: "Japan"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of tacos with various fillings",
+                    caption: "Tacos",
+                    subCaption: "Mexico"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of croissants",
+                    caption: "Croissants",
+                    subCaption: "France"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of paella with seafood and rice",
+                    caption: "Paella",
+                    subCaption: "Spain"
+                },
+                {
+                    src: "https://placehold.co/800x400",
+                    alt: "A plate of dim sum with various dumplings",
+                    caption: "Dim Sum",
+                    subCaption: "China"
+                }
+            ];
+
+            const nextSlide = () => {
+                setCurrentIndex((currentIndex + 1) % items.length);
+            };
+
+            const prevSlide = () => {
+                setCurrentIndex((currentIndex - 1 + items.length) % items.length);
+            };
+
+            return (
+                <div className="carousel">
+                    <div className="carousel-inner" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                        {items.map((item, index) => (
+                            <div className="carousel-item" key={index}>
+                                <img src={item.src} alt={item.alt} />
+                                <div className="carousel-caption">
+                                    <h3 className="text-xl font-bold">{item.caption}</h3>
+                                    <p>{item.subCaption}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <button className="carousel-control left" onClick={prevSlide}>
+                        <i className="fas fa-chevron-left"></i>
+                    </button>
+                    <button className="carousel-control right" onClick={nextSlide}>
+                        <i className="fas fa-chevron-right"></i>
+                    </button>
+                    <div className="carousel-indicators">
+                        {items.map((_, index) => (
+                            <div
+                                key={index}
+                                className={`carousel-indicator ${index === currentIndex ? 'active' : ''}`}
+                                onClick={() => setCurrentIndex(index)}
+                            ></div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div className="text-center py-10">
+                    <h1 className="text-3xl font-bold mb-5">Image Carousel</h1>
+                    <div className="text-left max-w-2xl mx-auto">
+                        <h2 className="text-2xl font-bold">World foods</h2>
+                        <p className="text-gray-600 mb-5">A carousel of famous foods from around the world</p>
+                        <Carousel />
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
