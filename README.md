@@ -18,7 +18,7 @@ This project is a simple image carousel showcasing AI-generated artwork of Homer
 
 ## Screenshot
 
-![Image Carousel Screenshot](./media/screenshot.png)
+![Image Carousel Screenshot](./image-carousel/media/screenshot.png)
 
 ## GIF Demo
 
